@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+* {
+    font-family: 'Raleway', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #efefef;
+}
+.input-text {
+    text-align: center;
+    padding-top: 20px;
+    margin: 0;
+    background-color: #ffffff;
+}
+.input {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 5px #ddd;
+}
+#name {
+    width: 400px;
+}
+#date {
+    margin: 0 10px;
+}
+
+.content {
+    height: 1000px;
+}
+.task-container {
+    width: 800px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin: 15px auto 0;
+    background-color: #ffffff;
+}
+.task-container__info {
+
+}
+.task__name {
+    font-weight: 700;
+    margin: 0;
+}
+.task-container__buttons {
+    display: flex;
+    align-items: center;
+}
+.task__deadline {
+    margin: 0;
+}
+.task-button--edit, .task-button--delete {
+    height: 20px;
+}
+.task-button--check {
+    width: 20px;
+    height: 20px;
+}
