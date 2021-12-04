@@ -11,15 +11,21 @@
 
     <!-- https://www.w3schools.com/html/html5_webstorage.asp -->
     <p class="input-text">Enter the name of your task, it's deadline and click 'ADD' to add it to your to-do list.</p>
-    <div class="input">
-        <input type="text" name="name" id="name" placeholder="Task name">
-        <input type="date" name="date" id="date">
-        <button id="button--add">+ ADD</button>
+    <div class="input-container">
+        <div class="input shadow">
+            <input type="text" name="name" id="name" placeholder="Task name">
+            <input type="date" name="date" id="date">
+            <button id="button--add">+ ADD</button>
+        </div>
+        <div class="error-container hidden">
+            <p class="error-container__message">wd</p>
+        </div>
     </div>
     
 
     <div class="content">
-        <div class="task-container">
+
+        <div class="task-container" id="template">
             <div class="task-container__info">
                 <p class="task__name">Example task name</p>
                 <p class="task__deadline">01.12.1999.</p>
@@ -30,6 +36,7 @@
                 <input class="task-button--check" type="checkbox" name="status" id="status">
             </div>
         </div>
+
     </div>
 
     <script src="script.js"></script>
