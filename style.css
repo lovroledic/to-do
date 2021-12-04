@@ -15,10 +15,12 @@ body {
     margin: 0;
     background-color: #ffffff;
 }
-.input {
+.input-container {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
+}
+.input {
     display: flex;
     justify-content: center;
     padding: 20px;
@@ -30,6 +32,19 @@ body {
 }
 #date {
     margin: 0 10px;
+}
+.hidden {
+    display: none;
+}
+.error-container {
+    background-color: #cfd8dc;
+    box-shadow: 5px 5px 5px #ddd;
+}
+.error-container__message {
+    font-weight: 700;
+    text-align: center;
+    margin: 2px;
+    color: #990000;
 }
 
 .content {
