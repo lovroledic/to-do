@@ -3,7 +3,7 @@ const eContainer = document.querySelector(".error-container");
 const eContainerMsg = document.querySelector(".error-container__message");
 const inName = document.querySelector("#name");
 const inDate = document.querySelector("#date");
-
+w
 document.getElementById("button--add").onclick = function() {
     var date = new Date(inDate.value);  
     var x = inName.value == null || inName.value == "";
