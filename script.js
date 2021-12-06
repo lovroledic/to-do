@@ -33,3 +33,6 @@ function newTask(task) {
     tContainer.querySelector(".task__deadline").innerHTML = task.day + "." + task.month + "." + task.year + ".";
     content.appendChild(tContainer);
 }
+function delete(tContainer) {
+    tContainer.parentNode.removeChild(tContainer);    
+}
