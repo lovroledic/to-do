@@ -34,7 +34,7 @@ body {
     margin: 0 10px;
 }
 .hidden {
-    display: none;
+    display: none!important;
 }
 .error-container {
     background-color: #cfd8dc;
@@ -60,7 +60,9 @@ body {
     background-color: #ffffff;
 }
 .task-container__info {
-
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
 .task__name {
     font-weight: 700;
