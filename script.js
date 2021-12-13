@@ -1,141 +1,134 @@
-if (typeof(Storage) !== undefined) {
-    window.onload = function() {
-        var keys = Object.keys(localStorage),
-            i = keys.length
-        while (i--) {
-            newTask(JSON.parse(localStorage.getItem(keys[i])))
-        }
-        //localStorage.clear();
-    }
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+* {
+    font-family: 'Raleway', sans-serif;
+    box-sizing: border-box;
 }
 
-const content = document.querySelector(".content")
-const eContainer = document.querySelector(".error-container")
-const eContainerMsg = document.querySelector(".error-container__message")
-const inName = document.querySelector("#name")
-const inDate = document.querySelector("#date")
-
-document.querySelector("#button--add").onclick = function() {
-    var date = new Date(inDate.value)
-    var x = inName.value == null || inName.value == "";
-    var y = date == "Invalid Date" || date == null || date == NaN;
-    if (x || y) {
-        eContainer.classList.remove("hidden");
-        eContainerMsg.innerHTML = (x && y) ? "You must enter a name and deadline before creating a task." : 
-        x ? "You must enter a name for your task." : "You must enter a deadline.";
-    }
-    else {
-        var task = {
-            year: getYear(date),
-            month: getMonth(date),
-            day: getDay(date),
-            name: inName.value,
-            checked: false
-        }
-        if (localStorage.getItem(JSON.stringify(task)) === null) { 
-            localStorage.setItem(JSON.stringify(task), JSON.stringify(task))
-            newTask(task)
-        } else {
-            alert("Task already exists.")
-        }
-    }
+body {
+    margin: 0;
+    background-color: #eeeeee;
+}
+input {
+    border-radius: 5px;
+    border-style: solid;
+    padding: 3px;
+}
+button {
+    width: 50px;
+    min-height: 30px;
+    color: #ffffff;
+    font-weight: 700;
+    border: none;
+    background-color: #1184e8;
+    outline: none;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input-text {
+    position: relative;
+    text-align: center;
+    padding-top: 20px;
+    margin: 0;
+    background-color: #ffffff;
+    z-index: 2;
+}
+.input-container {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+.input {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 5px 0 10px #7e7e7e;
+}
+#name {
+    font-size: 18px;
+    width: 400px;
+    height: 30px;
+    padding: 10px;
+    outline: none;
+    border-radius: 15px;
+}
+#date {
+    width: 150px;
+    margin: 0 10px;
+    outline: none;
+    border-radius: 15px;
+}
+#button--add {
+    width: 50px;
+}
+.hidden {
+    display: none!important;
+}
+.error-container {
+    background-color: #c3c3c3;
+    box-shadow: 5px 5px 5px #ddd;
+}
+.error-container__message {
+    font-weight: 700;
+    text-align: center;
+    margin: 3px;
+    color: #530000;
 }
 
-inName.oninput = function() {
-    eContainer.classList.add("hidden");
+.content {
+    margin-bottom: 80px;
 }
-inDate.oninput = function() {
-    eContainer.classList.add("hidden");
+.task-container {
+    width: 620px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin: 15px auto 0;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px #bcbcbc;
 }
-
-function newTask(task) {
-    var tContainer = document.querySelector("#template").cloneNode(true)
-    tContainer.removeAttribute("id")
-    tContainer.id = JSON.stringify(task)
-    tContainer.classList.remove("hidden")
-    tContainer.querySelector(".task__name").innerHTML = task.name
-    tContainer.querySelector(".task__deadline").innerHTML = task.day + "." + task.month + "." + task.year + "."
-    tContainer.querySelector(".task-button--check").checked = task.checked
-    content.insertBefore(tContainer, content.firstChild)
-    inName.value = ""
-    inDate.value = ""
+.task-container:hover .task-button--edit, .task-container:hover .task-button--delete {
+    display: flex;
 }
-function deleteTask(btnDelete) {
-    var tContainer = btnDelete.parentNode.parentNode
-    localStorage.removeItem(tContainer.id)
-    tContainer.parentNode.removeChild(tContainer)
+.task-container__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
-function editTask(btnEdit) {
-    btnEdit.setAttribute("onclick", "saveTask(this)")
-    btnEdit.innerHTML = "SAVE"
-    var tContainer = btnEdit.parentNode.parentNode
-    var currName = tContainer.querySelector(".task__name")
-    var currDeadline = tContainer.querySelector(".task__deadline")
-    var editInput = tContainer.querySelector(".task__name--edit")
-    var editDeadline = tContainer.querySelector(".task__deadline--edit")
-    currName.classList.add("hidden")
-    currDeadline.classList.add("hidden")
-    editInput.classList.remove("hidden")
-    editDeadline.classList.remove("hidden")
-
-    editInput.value = currName.innerHTML
-    var date = currDeadline.innerHTML
-    var day = date.substring(0, date.indexOf("."))
-    date = date.substring(date.indexOf(".") + 1)
-    var month = date.substring(0, date.indexOf("."))
-    date = date.substring(date.indexOf(".") + 1)
-    var year = date.substring(0, date.indexOf("."))
-    editDeadline.value = year + "-" + month + "-" + day
+.task__name {
+    max-width: 400px;
+    overflow-wrap: break-word;
+    font-weight: 700;
+    margin: 0;
 }
-function saveTask(btnSave) {
-    var tContainer = btnSave.parentNode.parentNode
-    var currName = tContainer.querySelector(".task__name")
-    var currDeadline = tContainer.querySelector(".task__deadline")
-    var checkbox = tContainer.querySelector(".task-button--check")
-    var editInput = tContainer.querySelector(".task__name--edit")
-    var editDeadline = tContainer.querySelector(".task__deadline--edit")
-
-    var date = new Date(editDeadline.value)
-    var newTask = {
-        year: getYear(date),
-        month: getMonth(date),
-        day: getDay(date),
-        name: editInput.value,
-        checked: checkbox.checked
-    }
-
-    localStorage.removeItem(tContainer.id)
-    tContainer.id = JSON.stringify(newTask)
-    btnSave.setAttribute("onclick", "editTask(this)")
-    btnSave.innerHTML = "EDIT"
-    
-    editInput.classList.add("hidden")
-    editDeadline.classList.add("hidden")
-    currName.classList.remove("hidden")
-    currDeadline.classList.remove("hidden")
-    
-    currName.innerHTML = newTask.name
-    currDeadline.innerHTML = newTask.day + "." + newTask.month + "." + newTask.year + "."
-    localStorage.setItem(tContainer.id, tContainer.id)
-    
+.task-container__buttons {
+    display: flex;
+    align-items: center;
 }
-function checkTask(btnCheck) {
-    var tContainer = btnCheck.parentNode.parentNode
-    localStorage.removeItem(tContainer.id)
-    var task = JSON.parse(tContainer.id)
-    task.checked = !task.checked
-    tContainer.querySelector(".task-button--check").checked = task.checked
-    tContainer.id = JSON.stringify(task)
-    localStorage.setItem(tContainer.id, tContainer.id)
+.task__deadline {
+    margin: 0;
 }
-
-function getDay(date) {
-    return date.getDate().toString().length == 1 ? "0" + date.getDate() : date.getDate()
+.task-button--edit, .task-button--delete {
+    display: none;
+    height: 20px;
+    margin-right: 10px;
 }
-function getMonth(date) {
-    var month = date.getMonth() + 1
-    return month.toString().length == 1 ? "0" + month : month
+.task__name--edit {
+    width: 400px;
+    overflow-wrap: break-word;
 }
-function getYear(date) {
-    return date.getFullYear()
+.task__deadline--edit {
+    width: 150px;
+    margin-top: 5px;
+}
+.task-button--check {
+    width: 20px;
+    height: 20px;
+    margin: 0;
 }
