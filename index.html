@@ -15,7 +15,7 @@
         <div class="input shadow">
             <input type="text" name="name" id="name" placeholder="Task name">
             <input type="date" name="date" id="date">
-            <button id="button--add">+ ADD</button>
+            <button id="button--add"><img src="assets/add.svg" alt=""></button>
         </div>
         <div class="error-container hidden">
             <p class="error-container__message"></p>
@@ -33,14 +33,13 @@
                 <input class="task__deadline--edit hidden" type="date">
             </div>
             <div class="task-container__buttons">
-                <button class="task-button--edit" onclick="editTask(this)">EDIT</button>
-                <button class="task-button--delete" onclick="deleteTask(this)">DELETE</button>
-                <input class="task-button--check" type="checkbox" name="status" id="status">
+                <button class="task-button--edit" onclick="editTask(this)"><img src="assets/edit.svg" alt=""></button>
+                <button class="task-button--delete" onclick="deleteTask(this)"><img src="assets/delete.svg" alt=""></button>
+                <input class="task-button--check" type="checkbox" onclick="checkTask(this)">
             </div>
         </div>
 
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
